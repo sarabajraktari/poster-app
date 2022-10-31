@@ -1,23 +1,18 @@
-import { ReactElement, useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { getPosts } from "./api/poster";
-import Layout from "./components/layout/Layout";
-import { PostsProps } from "./interfaces/Posts.props";
-import AboutUsPage from "./pages/AboutUs";
-import ContactPage from "./pages/Contact";
-import HomePage from "./pages/Home";
+import { AboutUsPage } from "@pages/AboutUs";
+import { ContactPage } from "@pages/Contact";
+import { HomePage } from "@pages/Home";
+import { ReactElement } from "react";
+import { Routes, Route } from "react-router-dom";
+// import { AboutUsPage, ContactPage, HomePage } from "@pages";
 
-const App = (): ReactElement => {
+function App(): ReactElement {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/about" element={<AboutUsPage />} />
-      </Routes>
-    </Layout>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/about" element={<AboutUsPage />} />
+    </Routes>
   );
-};
+}
 
 export default App;

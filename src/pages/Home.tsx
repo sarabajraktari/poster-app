@@ -1,9 +1,10 @@
+import { Layout } from "@components/layout/Layout";
 import { ReactElement, useEffect, useState } from "react";
 import { getPosts } from "../api/poster";
 import PostList from "../components/posts/PostList";
 import { PostsProps } from "../interfaces/Posts.props";
 
-const HomePage = (): ReactElement => {
+export const HomePage = (): ReactElement => {
   const [posts, setPosts] = useState<PostsProps[] | []>([]);
 
   useEffect(() => {
@@ -14,10 +15,8 @@ const HomePage = (): ReactElement => {
     fetchPosts();
   }, [posts]);
   return (
-    <>
+    <Layout>
       <PostList posts={posts} />
-    </>
+    </Layout>
   );
 };
-
-export default HomePage;

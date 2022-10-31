@@ -1,7 +1,10 @@
+import { Layout } from "@components/layout/Layout";
 import { ReactElement } from "react";
 
-const AboutUsPage = (): ReactElement => {
-  return <>ABOUT US PAGE</>;
+export const AboutUsPage = (): ReactElement => {
+  return (
+    <Layout>
+      <p>ABOUT US PAGE</p>
+    </Layout>
+  );
 };
-
-export default AboutUsPage;
