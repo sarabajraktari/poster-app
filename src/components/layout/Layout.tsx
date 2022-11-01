@@ -1,8 +1,9 @@
+import { LayoutProps } from "interfaces/LayoutProps";
 import { ReactElement } from "react";
 import { Footer } from "./Footer";
 import { MainNavigation } from "./MainNavigation";
 
-export const Layout = (props: any): ReactElement => {
+export const Layout = (props: LayoutProps): ReactElement => {
   return (
     <>
       <MainNavigation />

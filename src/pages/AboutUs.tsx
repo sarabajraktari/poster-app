@@ -1,4 +1,4 @@
-import { Layout } from "@components/layout/Layout";
+import { Layout } from "@components";
 import { ReactElement } from "react";
 
 export const AboutUsPage = (): ReactElement => {

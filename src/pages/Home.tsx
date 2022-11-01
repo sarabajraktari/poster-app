@@ -1,8 +1,8 @@
-import { Layout } from "@components/layout/Layout";
+import { Layout } from "@components";
+import PostList from "components/posts/PostList";
+import { PostsProps } from "interfaces/Posts.props";
 import { ReactElement, useEffect, useState } from "react";
 import { getPosts } from "../api/poster";
-import PostList from "../components/posts/PostList";
-import { PostsProps } from "../interfaces/Posts.props";
 
 export const HomePage = (): ReactElement => {
   const [posts, setPosts] = useState<PostsProps[] | []>([]);
