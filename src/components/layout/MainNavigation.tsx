@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 const navigation = [
-  { name: "Home", current: false, link: "/" },
+  { name: "Home", current: false, link: "/posts" },
   { name: "About us", current: false, link: "/about" },
   { name: "Contact", current: false, link: "/contact" },
 ];
@@ -36,16 +36,16 @@ export const MainNavigation = (): ReactElement => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <ul className="list-none">
+                    <ul className="list-none flex item-center space-x-4 ">
+                      {navigation.map((item) => (
                         <li
                           key={item.name}
                           className="m-2 text-md font-medium text-white"
                         >
                           <Link to={item.link}>{item.name}</Link>
                         </li>
-                      </ul>
-                    ))}
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>
