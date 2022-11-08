@@ -55,6 +55,10 @@ export const MainNavigation = (): ReactElement => {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <li className="m-2 text-md font-medium text-white list-none">
+                  {value.user?.username}
+                </li>
+
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
