@@ -1,8 +1,8 @@
-import { Fragment, ReactElement, useContext } from "react";
+import { Fragment, ReactElement } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-import { AuthContext } from "context/AuthContext";
+import { useAuth } from "@hooks";
 const navigation = [
   { name: "Home", current: false, link: "/posts" },
   { name: "About us", current: false, link: "/about" },
@@ -14,9 +14,9 @@ function classNames(...classes: string[]) {
 }
 
 export const MainNavigation = (): ReactElement => {
-  const value = useContext(AuthContext);
+  const { logout, user } = useAuth();
   const logOutHandler = () => {
-    value.logout();
+    logout();
   };
   return (
     <Disclosure as="nav" className="bg-cyan-700">
@@ -56,7 +56,7 @@ export const MainNavigation = (): ReactElement => {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <li className="m-2 text-md font-medium text-white list-none">
-                  {value.user?.username}
+                  {user?.username}
                 </li>
 
                 {/* Profile dropdown */}
@@ -66,7 +66,7 @@ export const MainNavigation = (): ReactElement => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={value.user?.profile_picture}
+                        src={user?.profile_picture}
                         alt=""
                       />
                     </Menu.Button>

@@ -28,6 +28,7 @@
         "pages/index"
       ],
       "@validators": ["validators/index"],
+      "@hooks":["hooks/index"]
     }
 
   },

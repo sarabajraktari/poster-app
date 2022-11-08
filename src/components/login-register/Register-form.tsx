@@ -1,11 +1,10 @@
 import { UserValidatorSchema } from "@validators";
-import { createUser } from "api/user";
 import { UserProps } from "interfaces/User.props";
 import { ReactElement } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { writeToStorage } from "utils/webStorage";
+import { useAuth } from "@hooks";
 
 export const RegisterForm = (): ReactElement => {
   const {
@@ -15,12 +14,9 @@ export const RegisterForm = (): ReactElement => {
   } = useForm<UserProps>({
     resolver: joiResolver(UserValidatorSchema()),
   });
-  const navigate = useNavigate();
-
-  const onSubmit = ({ username, email, password }: Partial<UserProps>) => {
-    // alert(JSON.stringify(data));
-    createUser<Partial<UserProps>>({ username, email, password });
-    navigate("/posts");
+  const { signup } = useAuth();
+  const onSubmit = (data: UserProps) => {
+    signup(data);
   };
 
   return (

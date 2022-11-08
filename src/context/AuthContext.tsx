@@ -2,12 +2,13 @@ import { LayoutProps } from "interfaces/LayoutProps";
 import { AuthContextProps, Nullable } from "./AuthContext.props";
 import React, { createContext, useLayoutEffect, useState } from "react";
 import { UserProps } from "interfaces/User.props";
-import { getUserById, loginUser } from "api/user";
+import { createUser, getUserById, loginUser } from "api/user";
 import { writeToStorage } from "utils/webStorage";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
+  signup: (data: Partial<UserProps>) => null,
   login: (_data: UserProps) => null,
   logout: () => null,
 });
@@ -15,8 +16,26 @@ export const AuthContext = createContext<AuthContextProps>({
 export const AuthProvider: React.FC<LayoutProps> = ({ children }) => {
   const [user, setUser] = useState<Nullable<UserProps>>(null);
   const userId = localStorage.getItem("userId");
-
   const navigate = useNavigate();
+  const signup = async ({
+    id,
+    username,
+    email,
+    password,
+  }: Partial<UserProps>) => {
+    await createUser<Partial<UserProps>>({
+      id,
+      username,
+      email,
+      password,
+    });
+
+    // if(result){
+
+    //   writeToStorage("userId",id,"localStorage")
+    //   navigate("/posts")
+    // }
+  };
   const login = async (data: UserProps) => {
     const result = await loginUser<UserProps[]>({ email: data.email });
     if (result[0] && result[0].password === data.password) {
@@ -48,7 +67,7 @@ export const AuthProvider: React.FC<LayoutProps> = ({ children }) => {
     getUser();
   }, [userId]);
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, signup, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

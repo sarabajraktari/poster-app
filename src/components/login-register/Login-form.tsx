@@ -1,21 +1,19 @@
-import { AuthContext } from "context/AuthContext";
 import { UserProps } from "interfaces/User.props";
-import { ReactElement, useContext } from "react";
+import { ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { BsFacebook, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { Link } from "react-router-dom";
-
+import { useAuth } from "@hooks";
 export const LoginForm = (): ReactElement => {
+  const { login } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<UserProps>();
 
-  const value = useContext(AuthContext);
-
   const onLogin = (data: Partial<UserProps>) => {
-    value.login({
+    login({
       email: data.email || "",
       password: data.password || "",
       id: data.id || "",
