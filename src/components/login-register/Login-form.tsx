@@ -1,28 +1,26 @@
-import { loginUser } from "api/user";
+import { AuthContext } from "context/AuthContext";
 import { UserProps } from "interfaces/User.props";
-import { ReactElement, useState } from "react";
+import { ReactElement, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { BsFacebook, BsLinkedin, BsTwitter } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
-import { writeToStorage } from "utils/webStorage";
+import { Link } from "react-router-dom";
 
 export const LoginForm = (): ReactElement => {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<UserProps>();
-  const onLogin = async (data: UserProps) => {
-    // alert(JSON.stringify(data));
-    const result = await loginUser<UserProps>(data.email);
-    if (result && result.password === data.password) {
-      writeToStorage("userId", result.id, "localStorage");
-      navigate("/posts");
-    }
-  };
 
+  const value = useContext(AuthContext);
+
+  const onLogin = (data: Partial<UserProps>) => {
+    value.login({
+      email: data.email || "",
+      password: data.password || "",
+      id: data.id || "",
+    });
+  };
   return (
     <>
       <section className="h-screen">

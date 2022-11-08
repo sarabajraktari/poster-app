@@ -1,7 +1,8 @@
-import { Fragment, ReactElement } from "react";
+import { Fragment, ReactElement, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { AuthContext } from "context/AuthContext";
 const navigation = [
   { name: "Home", current: false, link: "/posts" },
   { name: "About us", current: false, link: "/about" },
@@ -13,6 +14,10 @@ function classNames(...classes: string[]) {
 }
 
 export const MainNavigation = (): ReactElement => {
+  const value = useContext(AuthContext);
+  const logOutHandler = () => {
+    value.logout();
+  };
   return (
     <Disclosure as="nav" className="bg-cyan-700">
       {({ open }) => (
@@ -57,7 +62,7 @@ export const MainNavigation = (): ReactElement => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://i.stack.imgur.com/l60Hf.png"
+                        src={value.user?.profile_picture}
                         alt=""
                       />
                     </Menu.Button>
@@ -104,10 +109,10 @@ export const MainNavigation = (): ReactElement => {
                         {({ active }) => (
                           // eslint-disable-next-line jsx-a11y/anchor-is-valid
                           <a
-                            href="#"
+                            onClick={logOutHandler}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                             )}
                           >
                             Sign out

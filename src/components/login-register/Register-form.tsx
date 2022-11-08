@@ -5,6 +5,7 @@ import { ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { writeToStorage } from "utils/webStorage";
 
 export const RegisterForm = (): ReactElement => {
   const {
@@ -85,7 +86,7 @@ export const RegisterForm = (): ReactElement => {
           <div className="text-white mt-6 text-lg">
             Already have an account?
             <label className="no-underline border-b border-blue text-white">
-              <Link to="/"> Log in</Link>.
+              <Link to="/login"> Log in</Link>.
             </label>
           </div>
         </div>
