@@ -2,7 +2,11 @@ import { PostsProps } from "interfaces/Posts.props";
 import { ReactElement } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
 
-const PostItem = ({ image, title, content }: PostsProps): ReactElement => {
+export const PostItem = ({
+  image,
+  title,
+  content,
+}: PostsProps): ReactElement => {
   return (
     <div className="flex flex-col m-5 items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <img
@@ -26,5 +30,3 @@ const PostItem = ({ image, title, content }: PostsProps): ReactElement => {
     </div>
   );
 };
-
-export default PostItem;
