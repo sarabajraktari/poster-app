@@ -2,8 +2,9 @@ import { Fragment, ReactElement } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useAuth } from "@hooks";
 const navigation = [
-  { name: "Home", current: false, link: "/" },
+  { name: "Home", current: false, link: "/posts" },
   { name: "About us", current: false, link: "/about" },
   { name: "Contact", current: false, link: "/contact" },
 ];
@@ -13,6 +14,10 @@ function classNames(...classes: string[]) {
 }
 
 export const MainNavigation = (): ReactElement => {
+  const { logout, user } = useAuth();
+  const logOutHandler = () => {
+    logout();
+  };
   return (
     <Disclosure as="nav" className="bg-cyan-700">
       {({ open }) => (
@@ -36,20 +41,24 @@ export const MainNavigation = (): ReactElement => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <ul className="list-none">
+                    <ul className="list-none flex item-center space-x-4 ">
+                      {navigation.map((item) => (
                         <li
                           key={item.name}
                           className="m-2 text-md font-medium text-white"
                         >
                           <Link to={item.link}>{item.name}</Link>
                         </li>
-                      </ul>
-                    ))}
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <li className="m-2 text-md font-medium text-white list-none">
+                  {user?.username}
+                </li>
+
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
@@ -57,7 +66,7 @@ export const MainNavigation = (): ReactElement => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://i.stack.imgur.com/l60Hf.png"
+                        src={user?.profile_picture}
                         alt=""
                       />
                     </Menu.Button>
@@ -104,10 +113,10 @@ export const MainNavigation = (): ReactElement => {
                         {({ active }) => (
                           // eslint-disable-next-line jsx-a11y/anchor-is-valid
                           <a
-                            href="#"
+                            onClick={logOutHandler}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                             )}
                           >
                             Sign out

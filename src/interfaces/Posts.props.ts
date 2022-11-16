@@ -1,7 +1,7 @@
 export interface PostsProps {
     id: string
     title: string;
-    content: string;
+    description: string;
     image: string;
     categories?: string[];
     createdBy?: string;

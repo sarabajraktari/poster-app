@@ -1,5 +1,4 @@
-import { Layout } from "@components";
-import PostList from "components/posts/PostList";
+import { Layout, AddPost, PostList } from "@components";
 import { PostsProps } from "interfaces/Posts.props";
 import { ReactElement, useEffect, useState } from "react";
 import { getPosts } from "../api/poster";
@@ -13,9 +12,11 @@ export const HomePage = (): ReactElement => {
       setPosts(result);
     };
     fetchPosts();
-  }, [posts]);
+  }, []);
   return (
     <Layout>
+      <AddPost />
+
       <PostList posts={posts} />
     </Layout>
   );
