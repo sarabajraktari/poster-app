@@ -1,11 +1,12 @@
 import { create } from "api/poster";
+import { AxiosResponse } from "axios";
 import { LayoutProps } from "interfaces/LayoutProps";
 import { PostsProps } from "interfaces/Posts.props";
 import { createContext } from "react";
 import { PostContextProps } from "./PostContext.props";
 
 export const PostContext = createContext<PostContextProps>({
-  createPost: (data: Partial<PostsProps>) => null,
+  createPost: (_data: Partial<PostsProps>) => null,
 });
 export const PostProvider: React.FC<LayoutProps> = ({ children }) => {
   const createPost = async ({
@@ -13,9 +14,11 @@ export const PostProvider: React.FC<LayoutProps> = ({ children }) => {
     description,
     image,
   }: Partial<PostsProps>) => {
-    await create<Partial<PostsProps>>({ title, description, image });
-
-    // alert("Post create successfully!");
+    create({
+      title,
+      description,
+      image,
+    });
   };
   return (
     <PostContext.Provider value={{ createPost }}>

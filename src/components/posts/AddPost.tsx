@@ -1,36 +1,68 @@
 // import { joiResolver } from "@hookform/resolvers/joi";
+import { joiResolver } from "@hookform/resolvers/joi";
+import axios from "axios";
+import { baseURL } from "config/global";
+import { PostActionsEnums } from "enums/Post.enum";
 import { usePost } from "hooks/UsePost";
 import { PostsProps } from "interfaces/Posts.props";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ReactElement } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { PosterValidatorSchema } from "validators/Poster.validator";
 // import { PosterValidatorSchema } from "validators/Poster.validator";
 
 export const AddPost = (): ReactElement => {
   const {
     register,
     handleSubmit,
-    // reset,
+    formState: { errors, isDirty },
+    reset,
     // formState: { errors },
-  } = useForm<PostsProps>();
+  } = useForm<PostsProps>({ resolver: joiResolver(PosterValidatorSchema()) });
+  const navigate = useNavigate();
 
   const { createPost } = usePost();
+  const { modal, id } = useParams();
+
+  const { CREATE, EDIT } = PostActionsEnums;
+
+  const handleCreate = () => {
+    navigate(`/posts/${CREATE}`);
+  };
+  const handleEditPost = (id: string) => navigate(`/posts/edit/${id}`);
+  const handleGoBack = () => navigate("/posts");
 
   const onCreate = (data: PostsProps) => {
     createPost(data);
-    // alert(JSON.stringify(data));
+    handleGoBack();
   };
-  const [showModal, setShowModal] = React.useState(false);
+
+  useEffect(() => {
+    if (modal === EDIT) {
+      const getPost = async () => {
+        const { data } = await axios.get(`${baseURL}/post/${id}`);
+
+        reset({
+          title: data.title,
+          description: data.description,
+          image: data.image,
+        });
+      };
+      getPost();
+    }
+  }, [id]);
+
   return (
     <>
       <button
         className="bg-cyan-700 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none m-5 ease-linear transition-all duration-150"
         type="button"
-        onClick={() => setShowModal(true)}
+        onClick={handleCreate}
       >
         Create a post
       </button>
-      {showModal ? (
+      {modal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
@@ -38,14 +70,16 @@ export const AddPost = (): ReactElement => {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Create post</h3>
+                  <button className="text-3xl font-semibold">
+                    {modal === CREATE ? "Create Post" : "Edit Post"}
+                  </button>
                 </div>
                 {/*body*/}
                 <form onSubmit={handleSubmit(onCreate)}>
                   <div className="  block items-center p-4 max-w-sm w-96 m-5 float-right bg-white  dark:bg-gray-800 dark:border-gray-700 ">
                     <div className=" mb-3">
                       <input
-                        {...register("title", { required: true })}
+                        {...register("title")}
                         type="text"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Title"
@@ -79,13 +113,13 @@ export const AddPost = (): ReactElement => {
                     <button
                       className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() => setShowModal(false)}
+                      onClick={handleGoBack}
                     >
                       Close
                     </button>
                     <button
-                      className="bg-emerald-500 float-right text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="submit"
+                      className="bg-emerald-500 float-right text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       // onClick={() => setShowModal(false)}
                     >
                       Create

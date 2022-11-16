@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src/",
+    "paths": {
+      "@components": ["components/index"],
+      "@pages": ["pages/index"],
+      "@validators": ["validators/index"],
+      "@hooks": ["hooks/index"],
+      "@enums": ["enums/index"]
+    }
+  }
+}

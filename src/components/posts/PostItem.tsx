@@ -10,7 +10,7 @@ export const PostItem = ({
 }: PostsProps): ReactElement => {
   const [showDropDown, setShowDropDown] = React.useState(false);
   const handleChange = () => {
-    return setShowDropDown(!showDropDown);
+    setShowDropDown(!showDropDown);
   };
   return (
     <div className="relative flex flex-col m-5 items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -28,7 +28,7 @@ export const PostItem = ({
         >
           <SlOptionsVertical className="absolute top-0 right-0 pointer" />
         </button>
-        {showDropDown ? (
+        {showDropDown && (
           <div className=" absolute right-7 top-10 z-10 mt-2 w-48  bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
             <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
               <li>
@@ -43,7 +43,7 @@ export const PostItem = ({
               </li>
             </ul>
           </div>
-        ) : null}
+        )}
 
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {title}
