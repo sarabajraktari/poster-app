@@ -12,7 +12,7 @@ export const PostList = (props: PostsPropsArr): ReactElement => {
           id={post.id}
           image={post.image}
           title={post.title}
-          content={post.content}
+          description={post.description}
         />
       ))}
     </ul>

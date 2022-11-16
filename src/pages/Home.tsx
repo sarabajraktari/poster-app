@@ -12,10 +12,11 @@ export const HomePage = (): ReactElement => {
       setPosts(result);
     };
     fetchPosts();
-  }, [posts]);
+  }, []);
   return (
     <Layout>
       <AddPost />
+
       <PostList posts={posts} />
     </Layout>
   );
