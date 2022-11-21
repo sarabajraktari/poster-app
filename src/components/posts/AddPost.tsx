@@ -15,10 +15,13 @@ export const AddPost = (): ReactElement => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<PostsProps>({ resolver: joiResolver(PosterValidatorSchema()) });
+  } = useForm<PostsProps>({
+    mode: "onChange",
+    resolver: joiResolver(PosterValidatorSchema()),
+  });
   const navigate = useNavigate();
 
-  const { createPost } = usePost();
+  const { createPost, updatePost } = usePost();
   const { modal, id } = useParams();
 
   const { CREATE, EDIT } = PostActionsEnums;
@@ -26,7 +29,6 @@ export const AddPost = (): ReactElement => {
   const handleCreate = () => {
     navigate(`/posts/${CREATE}`);
   };
-  // const handleEditPost = (id:string) => navigate(`/posts/edit/${id}`);
   const handleGoBack = () => navigate("/posts");
 
   const onCreate = (data: PostsProps) => {
@@ -34,8 +36,10 @@ export const AddPost = (): ReactElement => {
       createPost(data);
       handleGoBack();
     } else {
-      // updatePost(data);
-      // handleGoBack();
+      console.log(data);
+
+      updatePost(id || "", data);
+      handleGoBack();
     }
   };
 

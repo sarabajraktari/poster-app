@@ -1,22 +1,31 @@
+import { ReactElement } from "react";
 import { PostsProps } from "@interfaces";
 import { Dropdown } from "@components";
-import React, { ReactElement } from "react";
 
 export const PostItem = ({
+  id,
   image,
   title,
   description,
 }: PostsProps): ReactElement => {
   return (
-    <div className="relative flex flex-col m-5 items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-      <img
-        className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-        src={image}
-        alt=""
-      />
-      <div className="flex flex-col justify-between p-5 leading-normal">
-        <Dropdown />
+    <div className="relative flex mx-auto m-5 items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      {image ? (
+        <img
+          className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+          src={image}
+          alt=""
+        />
+      ) : (
+        <img
+          width={192}
+          height={144}
+          className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png"
+        />
+      )}
 
+      <div className="w-full h-full justify-between p-5 leading-normal">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {title}
         </h5>
@@ -25,6 +34,7 @@ export const PostItem = ({
           {description}
         </p>
       </div>
+      <Dropdown id={id} />
     </div>
   );
 };
