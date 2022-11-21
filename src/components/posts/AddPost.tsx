@@ -1,24 +1,20 @@
-// import { joiResolver } from "@hookform/resolvers/joi";
 import { joiResolver } from "@hookform/resolvers/joi";
 import axios from "axios";
-import { baseURL } from "config/global";
-import { PostActionsEnums } from "enums/Post.enum";
-import { usePost } from "hooks/UsePost";
-import { PostsProps } from "interfaces/Posts.props";
-import React, { useEffect, useState } from "react";
-import { ReactElement } from "react";
+import { baseURL } from "@config";
+import { PostActionsEnums } from "@enums";
+import { usePost } from "@hooks";
+import { PostsProps } from "@interfaces";
+import { useEffect, ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { PosterValidatorSchema } from "validators/Poster.validator";
-// import { PosterValidatorSchema } from "validators/Poster.validator";
+import { PosterValidatorSchema } from "@validators";
 
 export const AddPost = (): ReactElement => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors },
     reset,
-    // formState: { errors },
   } = useForm<PostsProps>({ resolver: joiResolver(PosterValidatorSchema()) });
   const navigate = useNavigate();
 
@@ -30,12 +26,17 @@ export const AddPost = (): ReactElement => {
   const handleCreate = () => {
     navigate(`/posts/${CREATE}`);
   };
-  const handleEditPost = (id: string) => navigate(`/posts/edit/${id}`);
+  // const handleEditPost = (id:string) => navigate(`/posts/edit/${id}`);
   const handleGoBack = () => navigate("/posts");
 
   const onCreate = (data: PostsProps) => {
-    createPost(data);
-    handleGoBack();
+    if (modal === CREATE) {
+      createPost(data);
+      handleGoBack();
+    } else {
+      // updatePost(data);
+      // handleGoBack();
+    }
   };
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export const AddPost = (): ReactElement => {
       };
       getPost();
     }
-  }, [id]);
+  }, [modal, id]);
 
   return (
     <>
@@ -84,11 +85,11 @@ export const AddPost = (): ReactElement => {
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Title"
                       />
-                      {/* {errors.title && (
+                      {errors.title && (
                         <div className="text-red-600">
                           {errors.title.message}
                         </div>
-                      )} */}
+                      )}
                     </div>
                     <div className=" mb-3">
                       <textarea
@@ -122,7 +123,7 @@ export const AddPost = (): ReactElement => {
                       className="bg-emerald-500 float-right text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       // onClick={() => setShowModal(false)}
                     >
-                      Create
+                      {modal === CREATE ? "Create" : "Edit"}
                     </button>
                   </div>
                 </form>

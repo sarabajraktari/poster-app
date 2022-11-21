@@ -7,7 +7,7 @@ import {
   RegisterPage,
   LoginPage,
 } from "@pages";
-import { AuthRoute } from "components/auth-route/AuthRoute";
+import { AuthRoute } from "@components";
 
 function App(): ReactElement {
   return (

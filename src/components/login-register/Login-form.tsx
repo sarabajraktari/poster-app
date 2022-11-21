@@ -1,4 +1,4 @@
-import { UserProps } from "interfaces/User.props";
+import { UserProps } from "@interfaces";
 import { ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { BsFacebook, BsLinkedin, BsTwitter } from "react-icons/bs";

@@ -1,9 +1,8 @@
-import { LayoutProps } from "interfaces/LayoutProps";
 import { AuthContextProps, Nullable } from "./AuthContext.props";
 import React, { createContext, useLayoutEffect, useState } from "react";
-import { UserProps } from "interfaces/User.props";
-import { createUser, getUserById, loginUser } from "api/user";
-import { writeToStorage } from "utils/webStorage";
+import { UserProps, LayoutProps } from "@interfaces";
+import { createUser, getUserById, loginUser } from "@api";
+import { writeToStorage } from "@utils";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext<AuthContextProps>({

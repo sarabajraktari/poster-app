@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-import { baseURL } from "config/global"
+import { baseURL } from "@config"
 
 export const createUser = async<T, P = {}>(params: P): Promise<T> => {
     const { data }: AxiosResponse<T> = await axios.post(`${baseURL}/users`, params)

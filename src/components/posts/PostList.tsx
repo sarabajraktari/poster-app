@@ -1,4 +1,4 @@
-import { PostsProps } from "interfaces/Posts.props";
+import { PostsProps } from "@interfaces";
 import { ReactElement } from "react";
 import { PostItem } from "./PostItem";
 import { PostsPropsArr } from "./Posts.props";

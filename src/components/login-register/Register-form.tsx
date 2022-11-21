@@ -1,5 +1,5 @@
 import { UserValidatorSchema } from "@validators";
-import { UserProps } from "interfaces/User.props";
+import { UserProps } from "@interfaces";
 import { ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";

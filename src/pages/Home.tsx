@@ -1,5 +1,5 @@
 import { Layout, AddPost, PostList } from "@components";
-import { PostsProps } from "interfaces/Posts.props";
+import { PostsProps } from "@interfaces";
 import { ReactElement, useEffect, useState } from "react";
 import { getPosts } from "../api/poster";
 

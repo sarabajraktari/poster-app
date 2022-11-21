@@ -1,4 +1,4 @@
-import { UserProps } from "interfaces/User.props";
+import { UserProps } from "@interfaces";
 
 export type Nullable<T> = T | null;
 export interface AuthContextProps {
