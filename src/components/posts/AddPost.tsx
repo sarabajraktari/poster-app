@@ -34,10 +34,10 @@ export const AddPost = (): ReactElement => {
   const onCreate = (data: PostsProps) => {
     if (modal === CREATE) {
       createPost(data);
-      handleGoBack();
-    } else {
-      console.log(data);
 
+      handleGoBack();
+      reset();
+    } else {
       updatePost(id || "", data);
       handleGoBack();
     }
@@ -56,7 +56,7 @@ export const AddPost = (): ReactElement => {
       };
       getPost();
     }
-  }, [modal, id]);
+  }, [modal, id, EDIT, reset]);
 
   return (
     <>
@@ -81,7 +81,7 @@ export const AddPost = (): ReactElement => {
                 </div>
                 {/*body*/}
                 <form onSubmit={handleSubmit(onCreate)}>
-                  <div className="  block items-center p-4 max-w-sm w-96 m-5 float-right bg-white  dark:bg-gray-800 dark:border-gray-700 ">
+                  <div className="  block items-center p-6 max-w-sm w-96 m-5 float-right bg-white  dark:bg-gray-800 dark:border-gray-700 ">
                     <div className=" mb-3">
                       <input
                         {...register("title")}
@@ -125,7 +125,6 @@ export const AddPost = (): ReactElement => {
                     <button
                       type="submit"
                       className="bg-emerald-500 float-right text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      // onClick={() => setShowModal(false)}
                     >
                       {modal === CREATE ? "Create" : "Edit"}
                     </button>

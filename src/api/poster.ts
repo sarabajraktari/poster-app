@@ -25,3 +25,8 @@ export const update = async <T, P = {}>(id: string, params: P): Promise<T> => {
   );
   return data;
 };
+
+export const deletePost = async <T>(id: string): Promise<T> => {
+  const { data }: AxiosResponse<T> = await axios.delete(`${baseURL}/post/${id}`)
+  return data;
+}
