@@ -28,12 +28,6 @@ export const AuthProvider: React.FC<LayoutProps> = ({ children }) => {
       email,
       password,
     });
-
-    // if(result){
-
-    //   writeToStorage("userId",id,"localStorage")
-    //   navigate("/posts")
-    // }
   };
   const login = async (data: UserProps) => {
     const result = await loginUser<UserProps[]>({ email: data.email });

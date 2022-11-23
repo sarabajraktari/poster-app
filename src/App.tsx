@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { Routes, Route, Outlet, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import {
   AboutUsPage,
   ContactPage,
@@ -12,7 +12,6 @@ import { AuthRoute } from "@components";
 function App(): ReactElement {
   return (
     <>
-      <Outlet />
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginPage />} />

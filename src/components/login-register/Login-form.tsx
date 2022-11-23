@@ -1,16 +1,22 @@
 import { UserProps } from "@interfaces";
+import { useAuth } from "@hooks";
+
 import { ReactElement } from "react";
 import { useForm } from "react-hook-form";
 import { BsFacebook, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useAuth } from "@hooks";
+import { LoginValidatorSchema } from "@validators";
+import { joiResolver } from "@hookform/resolvers/joi";
+
 export const LoginForm = (): ReactElement => {
   const { login } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserProps>();
+  } = useForm<UserProps>({
+    resolver: joiResolver(LoginValidatorSchema()),
+  });
 
   const onLogin = (data: Partial<UserProps>) => {
     login({
@@ -74,28 +80,30 @@ export const LoginForm = (): ReactElement => {
                 {/* <!-- Email input --> */}
                 <div className="mb-6">
                   <input
-                    {...register("email", { required: true })}
+                    {...register("email")}
                     type="text"
                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-700 focus:outline-none"
                     id="exampleFormControlInput2"
                     placeholder="Email address"
                   />
                   {errors.email && (
-                    <div className="text-red-600">Email is empty</div>
+                    <div className="text-red-600">{errors.email.message}</div>
                   )}
                 </div>
 
                 {/* <!-- Password input --> */}
                 <div className="mb-6">
                   <input
-                    {...register("password", { required: true })}
+                    {...register("password")}
                     type="password"
                     className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-700 focus:outline-none"
                     id="exampleFormControlInput2"
                     placeholder="Password"
                   />
                   {errors.password && (
-                    <div className="text-red-600">Password is empty</div>
+                    <div className="text-red-600">
+                      {errors.password.message}
+                    </div>
                   )}
                 </div>
 

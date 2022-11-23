@@ -30,7 +30,7 @@ export const RegisterForm = (): ReactElement => {
               {/* Email input */}
               <div className="mb-6">
                 <input
-                  {...register("email", { required: true })}
+                  {...register("email")}
                   type="email"
                   className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-700 focus:outline-none"
                   id="exampleFormControlInput2"
@@ -44,7 +44,7 @@ export const RegisterForm = (): ReactElement => {
               {/* <!-- Username input --> */}
               <div className="mb-6">
                 <input
-                  {...register("username", { required: true })}
+                  {...register("username")}
                   type="text"
                   className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-700 focus:outline-none"
                   id="exampleFormControlInput2"
@@ -58,7 +58,7 @@ export const RegisterForm = (): ReactElement => {
               {/*Password input */}
               <div className="mb-6">
                 <input
-                  {...register("password", { required: true })}
+                  {...register("password")}
                   type="password"
                   className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-700 focus:outline-none"
                   id="exampleFormControlInput2"

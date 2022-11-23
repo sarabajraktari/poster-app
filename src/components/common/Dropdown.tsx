@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 export const Dropdown = ({ id }: { id: string }): ReactElement => {
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
   const [showDeleteModal, setDeleteModal] = useState<boolean>(false);
+
   const deleteChange = () => {
     setDeleteModal(!showDeleteModal);
     setShowDropDown(!showDropDown);
   };
-  const handleChange = () => {
+  const handleShowDropdown = () => {
     setShowDropDown(!showDropDown);
   };
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export const Dropdown = ({ id }: { id: string }): ReactElement => {
         data-dropdown-toggle="dropdownDots"
         className="inline-flex  "
         type="button"
-        onClick={handleChange}
+        onClick={handleShowDropdown}
       >
         <SlOptionsVertical className="absolute right-0  pointer" />
       </button>

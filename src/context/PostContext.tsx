@@ -26,7 +26,6 @@ export const PostProvider: React.FC<LayoutProps> = ({ children }) => {
 
   const removePost = (id: string) => {
     deletePost(id);
-    // alert("Post deleted successfully!");
   };
 
   return (

@@ -3,12 +3,12 @@ import { ReactElement } from "react";
 import { Footer } from "./Footer";
 import { MainNavigation } from "./MainNavigation";
 
-export const Layout = (props: LayoutProps): ReactElement => {
+export const Layout = ({ children }: LayoutProps): ReactElement => {
   return (
     <>
       <MainNavigation />
       <main className="max-w-xl mx-auto bg-white rounded-xl  overflow-hidden md:max-w-6xl">
-        {props.children}
+        {children}
       </main>
       <Footer />
     </>

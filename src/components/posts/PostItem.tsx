@@ -18,7 +18,7 @@ export const PostItem = ({
         />
       ) : (
         <img
-          className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+          className="object-cover w-full h-96 rounded-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png"
         />
       )}
