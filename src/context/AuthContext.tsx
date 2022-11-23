@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
+  error: null,
   signup: (data: Partial<UserProps>) => null,
   login: (_data: UserProps) => null,
   logout: () => null,
@@ -14,6 +15,7 @@ export const AuthContext = createContext<AuthContextProps>({
 
 export const AuthProvider: React.FC<LayoutProps> = ({ children }) => {
   const [user, setUser] = useState<Nullable<UserProps>>(null);
+  const [error, setError] = useState<string>("");
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const signup = async ({
@@ -35,16 +37,10 @@ export const AuthProvider: React.FC<LayoutProps> = ({ children }) => {
       writeToStorage("userId", result[0].id, "localStorage");
       navigate("/posts");
     } else {
-      if (!result[0]) {
-        alert("Email is incorrect!");
-        return;
-      }
-      if (result[0].password !== data.password) {
-        alert("Password is incorrect!");
-        return;
-      }
+      setError("Email or Password is incorrect!");
     }
   };
+
   const logout = () => {
     localStorage.removeItem("userId");
     navigate("/");
@@ -59,8 +55,9 @@ export const AuthProvider: React.FC<LayoutProps> = ({ children }) => {
     };
     getUser();
   }, [userId]);
+
   return (
-    <AuthContext.Provider value={{ user, signup, login, logout }}>
+    <AuthContext.Provider value={{ user, signup, login, logout, error }}>
       {children}
     </AuthContext.Provider>
   );

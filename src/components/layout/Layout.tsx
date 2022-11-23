@@ -7,7 +7,7 @@ export const Layout = ({ children }: LayoutProps): ReactElement => {
   return (
     <>
       <MainNavigation />
-      <main className="max-w-xl mx-auto bg-white rounded-xl  overflow-hidden md:max-w-6xl">
+      <main className="max-w-xl max-h-screen mx-auto bg-white rounded-xl  overflow-hidden md:max-w-6xl">
         {children}
       </main>
       <Footer />

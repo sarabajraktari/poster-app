@@ -60,13 +60,13 @@ export const AddPost = (): ReactElement => {
   return (
     <>
       <button
-        className="bg-cyan-700 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none m-5 ease-linear transition-all duration-150"
+        className="bg-cyan-700 mt-20 text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none m-5 ease-linear transition-all duration-150"
         type="button"
         onClick={handleCreate}
       >
         Create a post
       </button>
-      {modal && (
+      {(modal === CREATE || modal === EDIT) && (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
@@ -98,7 +98,7 @@ export const AddPost = (): ReactElement => {
                       <textarea
                         {...register("description")}
                         rows={4}
-                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="truncate block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Your content..."
                       ></textarea>
                     </div>

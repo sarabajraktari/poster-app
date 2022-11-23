@@ -7,9 +7,10 @@ import { BsFacebook, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { LoginValidatorSchema } from "@validators";
 import { joiResolver } from "@hookform/resolvers/joi";
+import { Alert, If, Ternary } from "@components";
 
 export const LoginForm = (): ReactElement => {
-  const { login } = useAuth();
+  const { login, error } = useAuth();
   const {
     register,
     handleSubmit,
@@ -25,6 +26,7 @@ export const LoginForm = (): ReactElement => {
       id: data.id || "",
     });
   };
+
   return (
     <>
       <section className="h-screen">
@@ -87,7 +89,7 @@ export const LoginForm = (): ReactElement => {
                     placeholder="Email address"
                   />
                   {errors.email && (
-                    <div className="text-red-600">{errors.email.message}</div>
+                    <div className="text-red-600">{errors.email?.message}</div>
                   )}
                 </div>
 
@@ -125,6 +127,14 @@ export const LoginForm = (): ReactElement => {
                     Forgot password?
                   </a>
                 </div>
+
+                <If condition={!!error}>
+                  <Alert message={error || ""} />
+                </If>
+
+                <Ternary condition={!!error} fallback={<div>TEST</div>}>
+                  <Alert message={error || ""} />
+                </Ternary>
 
                 <div className="text-center lg:text-left">
                   <button

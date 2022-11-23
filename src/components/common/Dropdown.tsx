@@ -1,29 +1,39 @@
+import { PostActionsEnums } from "@enums";
 import { usePost } from "@hooks";
 import { ReactElement, useState } from "react";
 import { SlOptionsVertical } from "react-icons/sl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useOutsideClickRef } from "rooks";
 
 export const Dropdown = ({ id }: { id: string }): ReactElement => {
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
-  const [showDeleteModal, setDeleteModal] = useState<boolean>(false);
+  // const [showDeleteModal, setDeleteModal] = useState<boolean>(false);
 
-  const deleteChange = () => {
-    setDeleteModal(!showDeleteModal);
+  const { removePost } = usePost();
+  const navigate = useNavigate();
+  const [ref] = useOutsideClickRef(() => {
     setShowDropDown(!showDropDown);
-  };
+  });
+  const { modal } = useParams();
+
+  const showDeleteModal = modal === PostActionsEnums.DELETE;
+
   const handleShowDropdown = () => {
     setShowDropDown(!showDropDown);
   };
-  const navigate = useNavigate();
   const handleEditPost = () => {
     setShowDropDown(!showDropDown);
     navigate(`/posts/edit/${id}`);
   };
-  const { removePost } = usePost();
+
+  const handleDeletePost = () => navigate(`/posts/delete/${id}`);
+  const handleGoBack = () => navigate("/posts");
+
   const deletePost = () => {
     removePost(id);
-    setDeleteModal(!showDeleteModal);
+    handleGoBack();
   };
+
   return (
     <div className="flex">
       <button
@@ -35,7 +45,10 @@ export const Dropdown = ({ id }: { id: string }): ReactElement => {
         <SlOptionsVertical className="absolute right-0  pointer" />
       </button>
       {showDropDown && (
-        <div className=" absolute top-0 right-0 m-3 z-10  w-48  bg-white rounded divide-y divide-gray-100 shadow ">
+        <div
+          ref={ref}
+          className=" absolute top-0 right-0 m-3 z-10  w-48  bg-white rounded divide-y divide-gray-100 shadow "
+        >
           <ul className="py-1 text-sm text-gray-700 ">
             <li>
               <button
@@ -47,7 +60,7 @@ export const Dropdown = ({ id }: { id: string }): ReactElement => {
             </li>
             <li>
               <button
-                onClick={deleteChange}
+                onClick={handleDeletePost}
                 className="block py-2 px-4 w-full hover:bg-gray-100 "
               >
                 Delete
@@ -79,7 +92,7 @@ export const Dropdown = ({ id }: { id: string }): ReactElement => {
                   <button
                     className="text-black-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={deleteChange}
+                    onClick={handleGoBack}
                   >
                     Close
                   </button>
