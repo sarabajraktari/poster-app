@@ -1,4 +1,4 @@
-import { PostsProps } from "interfaces/Posts.props";
+import { PostsProps } from "@interfaces";
 
 export interface PostsPropsArr {
     posts: PostsProps[];

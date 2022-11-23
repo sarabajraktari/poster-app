@@ -1,22 +1,20 @@
-import { PostsProps } from "interfaces/Posts.props";
+import { PostsProps } from "@interfaces";
 import { ReactElement } from "react";
-import PostItem from "./PostItem";
+import { PostItem } from "./PostItem";
 import { PostsPropsArr } from "./Posts.props";
 
-const PostList = (props: PostsPropsArr): ReactElement => {
+export const PostList = ({ posts }: PostsPropsArr): ReactElement => {
   return (
     <ul className="list-none">
-      {props.posts.map((post: PostsProps) => (
+      {posts.map((post: PostsProps) => (
         <PostItem
           key={post.id}
           id={post.id}
           image={post.image}
           title={post.title}
-          content={post.content}
+          description={post.description}
         />
       ))}
     </ul>
   );
 };
-
-export default PostList;
